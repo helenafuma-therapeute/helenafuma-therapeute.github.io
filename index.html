@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hélèna Fuma</title>
+    <meta name="theme-color" content="#6B3FA0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hélèna Fuma">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="images/icone-192.png">
+    <link rel="apple-touch-icon" href="images/icone-192.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ========== PAGE 1 : ACCUEIL ========== -->
+<section id="accueil">
+    <img src="images/logo-rond.png" class="logo-tourne" id="logo" alt="Hélèna Fuma">
+    <h1>Découvre ce que ta date de naissance <em>dit de toi</em></h1>
+    <p>Ton histoire t'appartient. Ton avenir aussi.</p>
+    <button onclick="commencer()">Commencer</button>
+</section>
+
+<!-- ========== PAGE 2 : SAISIE ========== -->
+<section id="saisie" class="cachee">
+    <h1>Faisons <em>connaissance</em></h1>
+    <p class="etiquette">Ton prénom</p>
+    <input id="prenom" type="text" autocomplete="off">
+    <p class="etiquette">Ta date de naissance</p>
+    <div class="ligne">
+        <select id="jour"><option value="">Jour</option></select>
+        <select id="mois"><option value="">Mois</option></select>
+        <select id="annee"><option value="">Année</option></select>
+    </div>
+    <p id="erreur" class="erreur"></p>
+    <button onclick="valider()">Découvrir</button>
+    <button class="secondaire" onclick="recommencer()">Retour</button>
+</section>
+
+<!-- ========== PAGE 3 : RÉVÉLATION ========== -->
+<section id="revelation" class="cachee">
+    <h1 id="titre-revelation"></h1>
+    <div id="chiffre" class="chiffre"></div>
+    <p id="profil" class="profil"></p>
+    <p id="forces" class="forces"></p>
+    <p id="frein" class="frein"></p>
+    <button onclick="voirOffres()">Pour te découvrir encore plus, c'est par ici 🖱️</button>
+</section>
+
+<!-- ========== PAGE 4 : LES OFFRES ========== -->
+<section id="offres" class="cachee">
+    <h1>Ce n'est que <em>le début</em></h1>
+    <div class="cartes">
+        <div class="carte barre-violet">
+            <p class="etiquette">Avec Hélèna, 20 minutes</p>
+            <h2>Numérologie flash</h2>
+            <p>Hélèna regarde ta date avec toi, ici, sur le stand.</p>
+            <p class="prix" id="prix-flash"></p>
+            <button onclick="ouvrirFlash()">Je m'inscris</button>
+        </div>
+        <div class="carte barre-or">
+            <span class="badge">Coup de &#9825;</span>
+            <p class="etiquette">Offre du stand</p>
+            <h2 id="titre-cdv">Ton Chemin de Vie</h2>
+            <p>Tous tes secrets : ta mission, tes forces, tes pièges, ton héritage familial.</p>
+            <p class="prix">E-book 19 € · Livret 32 €</p>
+            <p class="petit">Frais de port compris</p>
+            <button onclick="ouvrirFormatsCdv()">Je choisis mon format</button>
+        </div>
+        <div class="carte barre-corail">
+            <p class="etiquette">La collection d'Hélèna</p>
+            <h2>Les Enquêtes de l'Âme</h2>
+            <p>Amour, travail, famille, argent, blessures et croyances, enfant intérieur : choisis la part de ta vie à éclairer.</p>
+            <p class="prix">E-book 19 € · Livret 32 €</p>
+            <p class="petit">Frais de port compris</p>
+            <button onclick="ouvrirEnquetes()">Je choisis mon enquête</button>
+        </div>
+        <div class="carte barre-turquoise">
+            <p class="etiquette">Aller plus loin</p>
+            <h2>Méthode Libération</h2>
+            <p>Séance Conscience : 2 h en visio avec Hélèna, numérologie et psychogénéalogie.</p>
+            <p class="petit">Demande sa carte à Hélèna ou appelle le 07 60 02 73 21.</p>
+        </div>
+    </div>
+    <button class="secondaire" onclick="ouvrirContact()">Recevoir des nouvelles d'Hélèna</button>
+    <button class="secondaire" onclick="recommencer()">Terminer</button>
+</section>
+
+<!-- ========== PAGE 5a : INSCRIPTION NUMÉROLOGIE FLASH ========== -->
+<section id="flash" class="cachee">
+    <h1>Numérologie <em>flash</em></h1>
+    <p class="etiquette">Ton prénom</p>
+    <input id="flash-prenom" type="text" autocomplete="off">
+    <p class="etiquette">Ton téléphone</p>
+    <input id="flash-tel" type="tel" inputmode="tel" autocomplete="off" placeholder="06 12 34 56 78">
+    <p class="etiquette">Ton créneau</p>
+    <select id="flash-creneau"></select>
+    <p id="plus-de-creneau" class="petit cachee">Tous les créneaux sont pris pour aujourd'hui. Demande directement à Hélèna !</p>
+    <p id="erreur-flash" class="erreur"></p>
+    <button onclick="inscrireFlash()">Je réserve</button>
+    <button class="secondaire" onclick="allerA('offres')">Retour</button>
+</section>
+
+<!-- ========== PAGE 5b : RESTE EN CONTACT ========== -->
+<section id="contact" class="cachee">
+    <h1>Reste en <em>contact</em></h1>
+    <p>Reçois les conseils, les dates de salons et les nouveautés d'Hélèna.</p>
+    <p class="etiquette">Ton prénom</p>
+    <input id="contact-prenom" type="text" autocomplete="off">
+    <p class="etiquette">Ton e-mail</p>
+    <input id="contact-email" type="email" autocomplete="off">
+    <label class="consentement">
+        <input id="consentement" type="checkbox">
+        J'accepte de recevoir des nouvelles d'Hélèna par e-mail.
+    </label>
+    <p class="petit">Tes données servent uniquement à t'envoyer des nouvelles d'Hélèna.
+        Tu peux te désinscrire à tout moment en écrivant à contact@helenafuma-therapeute.fr.</p>
+    <p id="erreur-contact" class="erreur"></p>
+    <button onclick="enregistrerContact()">Je m'inscris</button>
+    <button class="secondaire" onclick="allerA('offres')">Retour</button>
+</section>
+
+<!-- ========== PAGE 5e : CHEMIN DE VIE, CHOIX DU FORMAT ========== -->
+<section id="formats-cdv" class="cachee">
+    <h1 id="titre-formats-cdv">Ton <em>Chemin de Vie</em></h1>
+    <p>Choisis ton format.</p>
+    <div class="cartes">
+        <div class="carte barre-corail">
+            <p class="etiquette">Version numérique</p>
+            <h2>E-book</h2>
+            <p>Reçu par e-mail, à lire sur ton téléphone ou ton ordinateur.</p>
+            <p class="prix">19 €</p>
+            <button onclick="commander('E-book', 'ebook-cdv')">Je le veux</button>
+        </div>
+        <div class="carte barre-or">
+            <span class="badge">Coup de &#9825;</span>
+            <p class="etiquette">Offre du stand</p>
+            <h2>Livret</h2>
+            <p>Ton chemin de vie expliqué en détail, imprimé, à garder.</p>
+            <p class="prix">32 €</p>
+            <p class="petit">Frais de port compris</p>
+            <button onclick="commander('Livret', 'livret-cdv')">Je le veux</button>
+        </div>
+    </div>
+    <button class="secondaire" onclick="allerA('offres')">Retour</button>
+</section>
+
+<!-- ========== PAGE 5d : LES ENQUÊTES DE L'ÂME ========== -->
+<section id="enquetes" class="cachee">
+    <h1>Les Enquêtes <em>de l'Âme</em></h1>
+    <p>Quelle part de ta vie veux-tu éclairer ?</p>
+    <div class="choix">
+        <button onclick="choisirTheme('Amour', this)">Amour</button>
+        <button onclick="choisirTheme('Travail', this)">Travail</button>
+        <button onclick="choisirTheme('Famille', this)">Famille</button>
+        <button onclick="choisirTheme('Argent', this)">Argent</button>
+        <button onclick="choisirTheme('Blessures et croyances', this)">Blessures et croyances</button>
+        <button onclick="choisirTheme('Enfant intérieur', this)">Enfant intérieur</button>
+    </div>
+    <div id="format-enquete" class="cachee">
+        <p class="etiquette" id="titre-format"></p>
+        <div class="choix">
+            <button onclick="commanderEnquete('E-book', 'ebook-enquete')">E-book · 19 €</button>
+            <button onclick="commanderEnquete('Livret', 'livret-enquete')">Livret · 32 €</button>
+        </div>
+    </div>
+    <p class="petit">Frais de port compris.</p>
+    <button class="secondaire" onclick="allerA('offres')">Retour</button>
+</section>
+
+<!-- ========== PAGE 5c : COMMANDE SUMUP ========== -->
+<section id="commande" class="cachee">
+    <h1>Ta <em>commande</em></h1>
+    <p id="texte-commande"></p>
+
+    <div id="zone-coordonnees">
+        <p class="petit">Tes coordonnées servent à t'envoyer ta commande.</p>
+        <div class="ligne">
+            <div class="champ">
+                <p class="etiquette">Prénom</p>
+                <input id="commande-prenom" type="text" autocomplete="off">
+            </div>
+            <div class="champ">
+                <p class="etiquette">Nom</p>
+                <input id="commande-nom" type="text" autocomplete="off">
+            </div>
+        </div>
+        <p class="etiquette">E-mail</p>
+        <input id="commande-email" type="email" autocomplete="off">
+        <p class="etiquette">Téléphone</p>
+        <input id="commande-tel" type="tel" inputmode="tel" autocomplete="off" placeholder="06 12 34 56 78">
+        <p class="etiquette">Adresse postale</p>
+        <input id="commande-adresse" type="text" autocomplete="off" placeholder="12 rue des Lilas">
+        <div class="ligne">
+            <div class="champ petit-champ">
+                <p class="etiquette">Code postal</p>
+                <input id="commande-cp" type="text" inputmode="numeric" autocomplete="off" placeholder="04300">
+            </div>
+            <div class="champ">
+                <p class="etiquette">Ville</p>
+                <input id="commande-ville" type="text" autocomplete="off">
+            </div>
+        </div>
+        <p id="erreur-commande" class="erreur"></p>
+        <button onclick="validerCommande()">Je valide ma commande</button>
+    </div>
+
+    <div id="zone-paiement" class="cachee">
+        <img id="qr-paiement" src="images/qr-livret-cdv.png" class="qr" alt="QR code du paiement SumUp">
+        <p class="petit">Scanne-moi avec l'appareil photo de ton téléphone pour payer.</p>
+        <p class="petit" id="consigne-sumup">Sur la page SumUp, indique ton nom complet : Hélèna retrouvera ainsi ta commande.</p>
+        <button onclick="payerSurTablette()">Payer sur la tablette</button>
+    </div>
+
+    <button class="secondaire" onclick="allerA('offres')">Retour</button>
+</section>
+
+<!-- ========== PAGE 6 : MERCI ========== -->
+<section id="merci" class="cachee">
+    <img src="images/logo-rond.png" class="logo-petit" alt="">
+    <h1 id="titre-merci">Merci !</h1>
+    <p id="texte-merci"></p>
+    <p class="petit">Ton histoire t'appartient. Ton avenir aussi.</p>
+    <button onclick="recommencer()">Terminer</button>
+</section>
+
+<!-- ========== ESPACE HÉLÈNA : CODE ========== -->
+<section id="code" class="cachee">
+    <h1>Espace <em>Hélèna</em></h1>
+    <p class="etiquette">Code</p>
+    <input id="code-saisi" type="password" inputmode="numeric" autocomplete="off">
+    <p id="erreur-code" class="erreur"></p>
+    <button onclick="verifierCode()">Entrer</button>
+    <button class="secondaire" onclick="recommencer()">Retour</button>
+</section>
+
+<!-- ========== ESPACE HÉLÈNA : GESTION ========== -->
+<section id="admin" class="cachee">
+    <h1>Espace <em>Hélèna</em></h1>
+
+    <div class="carte large a-imprimer cachee" id="carte-en-ligne">
+        <h2>Fréquentation : tous les appareils</h2>
+        <p class="petit">Ta tablette + les téléphones des visiteurs qui ont scanné le QR code.</p>
+        <p id="stats-en-ligne-depuis" class="petit"></p>
+        <div id="stats-en-ligne"></div>
+        <button class="secondaire" onclick="afficherStatsEnLigne()">Actualiser</button>
+    </div>
+
+    <div class="carte large a-imprimer">
+        <h2>Fréquentation : cette tablette</h2>
+        <p id="stats-depuis" class="petit"></p>
+        <div id="stats"></div>
+        <button onclick="exporterStatsPDF()">Exporter en PDF</button>
+        <button class="secondaire" onclick="remettreStatsAZero()">Remettre à zéro</button>
+        <p id="msg-stats" class="petit"></p>
+    </div>
+
+    <div class="carte large">
+        <h2>Liste d'attente flash</h2>
+        <div id="liste-flash"></div>
+        <button class="secondaire" onclick="viderFlash()">Vider la liste</button>
+    </div>
+
+    <div class="carte large">
+        <h2>Commandes livret / e-book</h2>
+        <div id="liste-commandes"></div>
+        <button class="secondaire" onclick="viderCommandes()">Vider la liste</button>
+    </div>
+
+    <div class="carte large">
+        <h2>Contacts (nouvelles d'Hélèna)</h2>
+        <p id="nb-contacts"></p>
+        <button class="secondaire" onclick="effacerContacts()">Effacer les contacts</button>
+    </div>
+
+    <div class="carte large">
+        <h2>Export du salon</h2>
+        <p class="petit">Un fichier Excel avec 3 onglets : Contacts, Commandes, Flash.</p>
+        <button onclick="exporterExcel()">Exporter (fichier Excel)</button>
+        <p id="msg-contacts" class="petit"></p>
+    </div>
+
+    <div class="carte large">
+        <h2>Réglages du salon</h2>
+        <p class="etiquette">Prix numérologie flash (€)</p>
+        <input id="r-prix-flash" type="text" inputmode="decimal">
+        <p class="etiquette">Créneaux flash (séparés par des virgules)</p>
+        <input id="r-creneaux" type="text">
+        <p class="etiquette">Nouveau code (4 chiffres ou plus)</p>
+        <input id="r-code" type="text" inputmode="numeric">
+        <button onclick="enregistrerReglages()">Enregistrer les réglages</button>
+        <p id="msg-reglages" class="petit"></p>
+    </div>
+
+    <div class="carte large">
+        <h2>QR code de l'appli</h2>
+        <p class="petit">À faire scanner aux visiteurs : ils calculent leur chemin de vie sur leur téléphone.</p>
+        <img src="images/qr-appli.png" class="qr" alt="QR code de l'appli">
+        <p class="petit">helena04300.github.io</p>
+    </div>
+
+    <button onclick="recommencer()">Quitter l'espace Hélèna</button>
+
+    <!-- petit clin d'œil -->
+    <button id="chevre" class="chevre" onclick="chevre()" aria-label="Une chèvre">🐐</button>
+    <p id="bulle-chevre" class="bulle-chevre cachee"></p>
+</section>
+
+<!-- ========== BANDEAU DE MISE À JOUR ========== -->
+<div id="bandeau-maj" class="bandeau-maj cachee">
+    <span>Une nouvelle version de l'appli est prête.</span>
+    <button id="bouton-maj">Mettre à jour</button>
+</div>
+
+<!-- ========== BAS DE PAGE (sur toutes les pages) ========== -->
+<footer class="pied">
+    <span class="pied-nom">Hélèna Fuma</span>
+    <span class="pied-metier">Numérologie karmique transgénérationnelle &amp; libération des mémoires familiales</span>
+</footer>
+
+<script src="xlsx.mini.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
