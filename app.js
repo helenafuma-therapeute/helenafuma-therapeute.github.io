@@ -68,7 +68,7 @@ let cheminActuel = null;   // le chemin de vie de la visiteuse en cours
 // tableau Google d'Hélèna dès qu'il y a Internet (rien n'est perdu hors connexion).
 // On n'envoie JAMAIS de prénom, de date de naissance ni d'e-mail : juste ce qui s'est passé.
 // ==============================
-const COMPTEUR_EN_LIGNE = "";              // l'adresse du script Google d'Hélèna (finit par /exec)
+const COMPTEUR_EN_LIGNE = "https://script.google.com/macros/s/AKfycbzRs4yk9T-PiIcHWCaSDH7iWDDTp4j6VNDEdacj9A6rC0pKXGBVHERPbBuL1glB3q08/exec";   // le script Google d'Hélèna
 const CLE_COMPTEUR = "chevre-amour-2026";  // la même que dans le script Google
 
 let envoiEnCours = false;
@@ -805,6 +805,29 @@ function enregistrerReglages() {
 // ==============================
 // AU DÉMARRAGE
 // ==============================
+// « 👆 Clique ici » sous chaque bouton important des pages visiteurs
+function ajouterCliqueIci() {
+    let pages = ["accueil", "saisie", "revelation", "offres", "flash", "contact", "formats-cdv", "enquetes", "commande"];
+    for (let id of pages) {
+        let page = document.getElementById(id);
+        if (!page) continue;
+        for (let bouton of page.querySelectorAll("button:not(.secondaire)")) {
+            if (bouton.closest(".choix")) continue;
+            let aide = document.createElement("p");
+            aide.className = "clique-ici";
+            aide.textContent = "👆 Clique ici";
+            bouton.insertAdjacentElement("afterend", aide);
+        }
+        for (let groupe of page.querySelectorAll(".choix")) {
+            let aide = document.createElement("p");
+            aide.className = "clique-ici";
+            aide.textContent = "👆 Clique sur ton choix";
+            groupe.insertAdjacentElement("afterend", aide);
+        }
+    }
+}
+ajouterCliqueIci();
+
 remplirDates();
 relancerMinuteur();
 
